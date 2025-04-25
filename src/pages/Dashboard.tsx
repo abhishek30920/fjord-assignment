@@ -60,7 +60,15 @@ const FinancialReport = () => {
     };
   }, []);
 
-  const handleChange = (i, field, value) => {
+  interface FieldData {
+    A: string;
+    B: string;
+    C: string;
+  }
+
+ 
+
+  const handleChange = (i: number, field: keyof FieldData, value: string): void => {
     const newData = [...data];
     newData[i][field] = value;
     setData(newData);
@@ -70,7 +78,7 @@ const FinancialReport = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const formatDate = (date) => {
+  const formatDate = (date:Date) => {
     return date.toLocaleDateString('nb-NO', {
       day: '2-digit',
       month: '2-digit',
@@ -78,7 +86,7 @@ const FinancialReport = () => {
     });
   };
 
-  const formatTime = (date) => {
+  const formatTime = (date: Date) => {
     return date.toLocaleTimeString('nb-NO', {
       hour: '2-digit',
       minute: '2-digit',
@@ -93,7 +101,7 @@ const FinancialReport = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: i => ({
+    visible: (i: number) => ({
       opacity: 1,
       y: 0,
       transition: {
@@ -176,13 +184,20 @@ const FinancialReport = () => {
               )}
               <h1 className="text-lg font-bold text-blue-900">Finansiell Rapport 2024–25</h1>
             </div>
-            
+           
             <div className="flex items-center space-x-2 mt-2 md:mt-0">
+              {/* Added date display back */}
+              <div className="text-gray-500 text-sm mr-3">
+                <div>{formatDate(currentDate)}</div>
+                <div>{formatTime(currentDate)}</div>
+              </div>
+              
               <img
                 src={`https://ui-avatars.com/api/?name=${currentUsername}&background=0062cc&color=fff`}
                 alt="Profile"
                 className="w-8 h-8 rounded-full shadow-sm"
               />
+       
               <span className="text-gray-700 font-medium">{currentUsername} </span>
               <motion.button 
                 className="text-red-500 font-semibold hover:text-red-600"
