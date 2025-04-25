@@ -28,3 +28,15 @@ This is a **frontend-only** implementation designed to demonstrate the UI/UX of 
 | **React Hooks** | State and effect management   |
 | **LocalStorage**| Credential persistence      |
 ---------------------------------------------------
+
+##HOMEPAGE 
+![image](https://github.com/user-attachments/assets/acf4392b-7e3d-4160-96eb-1a2288b1d1e8)
+
+##LOGINPAGE
+![image](https://github.com/user-attachments/assets/19e4b13d-296c-477b-9caf-503692e88336)
+
+## Financial Dashboard Page
+![image](https://github.com/user-attachments/assets/900c0ad1-8935-4d96-a12c-a551ecffe5d1)
+
+
+ 
