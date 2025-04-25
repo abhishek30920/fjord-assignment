@@ -1,21 +1,18 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-
-import mountainImage from '../assets/mountain.jpg';
+import mountainImage from '../assets/mountain.jpg'
 
 const Home: React.FC = () => {
   return (
     <div
-    className="flex-1 flex flex-col h-screen w-full overflow-hidden"
-    style={{
-      backgroundImage: `url(${mountainImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }}
-  >
-  
+      className="flex-1 flex flex-col h-screen w-full overflow-hidden"
+      style={{
+        backgroundImage: `url(${mountainImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <motion.div
         className="flex-1 mt-20 flex flex-col p-8 md:p-16"
         initial={{ opacity: 0, y: 30 }}

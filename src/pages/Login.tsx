@@ -1,50 +1,46 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import nhoLogo from '../assets/nelfo_logo.jpeg';
-
-
-import { createContext } from 'react';
-// Creating context for username 
-export const UserContext = createContext<{ username: string; setUsername: (name: string) => void }>({
-  username: '',
-  setUsername: () => {}
-});
+import { UserContext } from '../contexts/UserContext';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { setUsername } = useContext(UserContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [rememberMe, setRememberMe] = useState<boolean>(false);
-  
+  const [savedEmail, setSavedEmail] = useLocalStorage<string>('userEmail', '');
   
   useEffect(() => {
-    const savedEmail = localStorage.getItem('userEmail');
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
     }
-  }, []);
+  }, [savedEmail]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
     
-   
     if (rememberMe) {
-      localStorage.setItem('userEmail', email);
+      setSavedEmail(email);
     } else {
+      setSavedEmail('');
       localStorage.removeItem('userEmail');
     }
 
-    // Save username to localStorage so the financial board can access it
-    localStorage.setItem('currentUser', email.split('@')[0]);
+    // Extract username from email
+    const username = email.split('@')[0];
     
-
+    // Update context and localStorage
+    setUsername(username);
+    localStorage.setItem('currentUser', username);
+    
     setTimeout(() => {
       setIsLoading(false);
       console.log('Login attempt with:', { email, password });
@@ -169,7 +165,7 @@ const Login: React.FC = () => {
         animate={{ opacity: 0.8 }}
         transition={{ delay: 0.8 }}
       >
-        © 2025 NHO Elektro.All right reserved.
+        © 2025 NHO Elektro. All rights reserved.
       </motion.div>
     </motion.div>
   );
