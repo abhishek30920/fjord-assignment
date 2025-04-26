@@ -3,24 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Sidebar from "../components/ui/Sidebar";
 import Header from "../components/dashboard/layout/Header";
-import ActionBar from "../components/dashboard/ActionBar";
 import FinancialTable from "../components/dashboard/FinancialTable";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { FieldData } from "../types/financial.types";
 
 const rows = [
   "Omsetning eksklusiv MVA",
-  "Korrigert omsetningsplikt (1, 2 og 3)",
-  "varekjop",
-  "Lonn + sosiale kostnader montorer, larlinger",
-  "Lonn + sosiale kostnader installator som montor",
-  "Innleid arbeid (se ogsa post 16 og 43)",
+  "Korrigert omsetningsplikt (1,2 og 3)",
+  "varekjøp",
+  "Lønn + sosiale kostnader montører, lærlinger",
+  "Lønn + sosiale kostnader installatør som montør",
+  "Innleid arbeid (se også post 16 og 43)",
   "Bruttofortjeneste",
-  "ovrige driftskostnader",
+  "Øvrige driftskostnader",
   "Brutto driftsresultat",
   "Finansinntekter / finanskostnader",
-  "Netto driftsresultat for ekstraordinare poster og arsoppgjorsdisp.",
-  "Sum utfakturerte [produktive] timer",
+  "Netto driftsresultat før ekstraordinære poster og årsoppgjørsdisp.",
+  "Sum utfakturerte (produktive) timer",
   "Antatt anbuds omsetning i prosent av total omsetning (frivillig)",
 ];
 
@@ -31,17 +30,23 @@ const Dashboard: React.FC = () => {
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState("Resultat");
   
-  // Initialize data with default values
+  // Initialize data with values from the screenshot
   const [data, setData] = useState<FieldData[]>(
-    rows.map((_, idx) => {
-      if (idx === 4) return { A: "800", B: "800", C: "0" };
-      if (idx === 5) return { A: "80", B: "80", C: "0" };
-      if (idx === 7) return { A: "-660", B: "-660", C: "0" };
-      if (idx === 9) return { A: "5000", B: "", C: "" };
-      if (idx === 10) return { A: "-208", B: "", C: "" };
-      if (idx === 11) return { A: "-4568", B: "", C: "" };
-      return { A: "0", B: "0", C: "0" };
-    })
+    [
+      { A: "0", B: "28526", C: "0" }, // Omsetning eksklusiv MVA
+      { A: "0", B: "0", C: "0" }, // Korrigert omsetningsplikt
+      { A: "0", B: "0", C: "0" }, // varekjøp
+      { A: "0", B: "0", C: "0" }, // Lønn + sosiale kostnader montører, lærlinger
+      { A: "800", B: "800", C: "0" }, // Lønn + sosiale kostnader installatør som montør
+      { A: "60", B: "60", C: "0" }, // Innleid arbeid
+      { A: "-860", B: "-860", C: "0" }, // Bruttofortjeneste
+      { A: "5000", B: "", C: "" }, // Øvrige driftskostnader
+      { A: "-5860", B: "", C: "" }, // Brutto driftsresultat
+      { A: "-208", B: "", C: "" }, // Finansinntekter / finanskostnader
+      { A: "-6068", B: "", C: "" }, // Netto driftsresultat før ekstraordinære poster
+      { A: "139", B: "", C: "" }, // Sum utfakturerte timer
+      { A: "0", B: "", C: "" }, // Antatt anbuds omsetning
+    ]
   );
 
   // Load username from localStorage if not available in context
@@ -69,7 +74,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen font-sans bg-gray-50 overflow-hidden">
+    <div className="flex h-screen font-sans bg-sky-800  overflow-hidden">
       {/* Sidebar Component */}
       <Sidebar 
         sidebarOpen={sidebarOpen} 
@@ -79,24 +84,36 @@ const Dashboard: React.FC = () => {
       />
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden bg-white mx-4 my-4 rounded-lg shadow-lg">
         {/* Header Component */}
         <Header 
           title="Finansiell Rapport 2024–25" 
-          username={username || 'Bruker'} 
+          username="Bauta Electro AS" 
           toggleSidebar={toggleSidebar} 
           isMobile={isMobile} 
           onLogout={handleLogout} 
         />
 
-        {/* Action Bar Component */}
-        <ActionBar 
-          tabs={["Resultat", "Balanse", "Sysselsetting", "Omsetning"]} 
-          activeTab={activeTab} 
-          onTabChange={setActiveTab} 
-        />
+        {/* Tabs */}
+        <div className="border-b border-gray-300">
 
-      
+          <div className="flex">
+            {["Resultat", "Balanse", "Sysselsetting", "Omsetning"].map((tab) => (
+              <button
+                key={tab}
+                className={`px-6 py-2 text-sm font-medium ${
+                  tab === activeTab
+                    ? "text-sky-600 border-b-2 border-sky-600"
+                    : "text-gray-400 hover:text-gray-700"
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="flex-1 overflow-y-auto p-4">
           {/* Financial Table Component */}
           <FinancialTable 
@@ -105,6 +122,7 @@ const Dashboard: React.FC = () => {
             onDataChange={handleDataChange} 
           />
         </div>
+        
       </div>
     </div>
   );

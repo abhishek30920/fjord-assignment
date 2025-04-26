@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChartBar, FaUsers, FaCog, FaFileAlt, FaBars, FaTimes } from "react-icons/fa";
-
+import {  FaFileAlt} from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { SiGoogleanalytics } from "react-icons/si";
+import { FaQuestionCircle } from "react-icons/fa";
+import { IoBookSharp } from "react-icons/io5";
 interface SidebarProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
@@ -31,48 +34,67 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar, isMobile,
       </AnimatePresence>
 
       {/* Sidebar */}
+      
       <motion.aside
-        className={`${isMobile ? 'fixed left-0 top-0 h-full z-20' : ''} w-16 bg-blue-900 text-white flex flex-col items-center py-4 space-y-6`}
+        className={`${isMobile ? 'fixed left-0 top-0 h-full z-20' : ''} w-16 bg-sky-800 text-white flex flex-col items-center py-4 space-y-6`}
         variants={sidebarVariants}
         initial={isMobile ? "closed" : "open"}
         animate={isMobile ? (sidebarOpen ? "open" : "closed") : "open"}
       >
+        <div className="mb-6 ml-3 mb-20" >
+          <img src="/download.png" alt="Logo" className="w-10 h-10" />
+        </div>
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="p-2 rounded-lg hover:bg-blue-800 cursor-pointer"
+          className="p-2 rounded-lg cursor-pointer ml-2 hover:bg-white hover:text-black text-white"
         >
-          <FaChartBar className="text-xl" />
+          <FaUser className="text-xl" />
         </motion.div>
+
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="p-2 rounded-lg hover:bg-blue-800 cursor-pointer"
+          className={`p-2 rounded-lg cursor-pointer ml-2
+    ${currentPage === 'documents' ? 'bg-white text-black' : 'hover:bg-white hover:text-black text-white'}
+  `}
         >
-          <FaUsers className="text-xl" />
+          <SiGoogleanalytics className="text-xl" />
         </motion.div>
+
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className={`p-2 rounded-lg hover:bg-blue-800 cursor-pointer ${currentPage === 'documents' ? 'bg-blue-700' : ''}`}
+          className="p-2 rounded-lg cursor-pointer ml-2 hover:bg-white hover:text-black text-white"
         >
           <FaFileAlt className="text-xl" />
         </motion.div>
+
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="p-2 rounded-lg hover:bg-blue-800 cursor-pointer"
+          className="p-2 rounded-lg cursor-pointer ml-2 hover:bg-white hover:text-black text-white"
         >
-          <FaCog className="text-xl" />
+          <IoBookSharp className="text-xl" />
         </motion.div>
+
+      
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="p-2 rounded-lg hover:bg-blue-800 cursor-pointer mt-auto"
+          className="p-2 rounded-lg cursor-pointer ml-2 hover:bg-white hover:text-black text-white"
+        >
+          <FaQuestionCircle className="text-xl" />
+        </motion.div>
+
+        {/* <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="p-2 rounded-lg hover:bg-blue-800 cursor-pointer mt-auto ml-2"
           onClick={toggleSidebar}
         >
-          {sidebarOpen && isMobile ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
-        </motion.div>
+          {sidebarOpen && isMobile ? <FaTimes className="text-xl " /> : <FaBars className="text-xl" />}
+        </motion.div> */}
       </motion.aside>
     </>
   );

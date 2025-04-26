@@ -1,8 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { IoMdExit } from 'react-icons/io';
 import { FaBars } from 'react-icons/fa';
-import { formatDate, formatTime } from '../../../utils/dateFormatter';
+import { IoMdExit } from 'react-icons/io';
 
 interface HeaderProps {
   title: string;
@@ -13,45 +11,40 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, username, toggleSidebar, isMobile, onLogout }) => {
-  const currentDate = new Date();
-
   return (
-    <div className="bg-white shadow px-4 py-3">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-        <div className="flex items-center">
-          {isMobile && toggleSidebar && (
-            <button onClick={toggleSidebar} className="mr-3">
-              <FaBars className="text-gray-600" />
-            </button>
-          )}
-          <h1 className="text-lg font-bold text-blue-900">{title}</h1>
+    <div className="bg-white px-4 py-3 flex justify-between items-center">
+      <div className="flex items-center">
+        {isMobile && toggleSidebar && (
+          <button onClick={toggleSidebar} className="mr-3">
+            <FaBars className="text-gray-600" />
+          </button>
+        )}
+        <h1 className="text-lg font-medium text-gray-700">{title}</h1>
+      </div>
+
+      <div className="flex items-center space-x-3">
+        <div className="text-gray-600 text-xs flex items-center gap-1 bg-sky-100 p-1 rounded-2xl">
+          <div>Date: 08.04.2025</div>
+          <span className='text-blue-300'>|</span>
+          <div>Time: 09:28:31</div>
         </div>
-        
-        <div className="flex items-center space-x-2 mt-2 md:mt-0">
-          <div className="text-gray-500 text-sm mr-3">
-            <div>{formatDate(currentDate)}</div>
-            <div>{formatTime(currentDate)}</div>
+
+
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8  bg-sky-600 text-white rounded-full flex items-center justify-center">
+            B
           </div>
-          
-          <img
-            src={`https://ui-avatars.com/api/?name=${username}&background=0062cc&color=fff`}
-            alt="Profile"
-            className="w-8 h-8 rounded-full shadow-sm"
-          />
-          
-          <span className="text-gray-700 font-medium">{username}</span>
-          
-          {onLogout && (
-            <motion.button 
-              className="text-red-500 font-semibold hover:text-red-600"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onLogout}
-            >
-              <IoMdExit />
-            </motion.button>
-          )}
+          <span className="text-gray-700">{username}</span>
         </div>
+
+        {onLogout && (
+          <button
+            className="text-blue-600"
+            onClick={onLogout}
+          >
+            <IoMdExit />
+          </button>
+        )}
       </div>
     </div>
   );
