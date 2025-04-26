@@ -38,8 +38,8 @@ const Header: React.FC<HeaderProps> = ({ title, username, toggleSidebar, isMobil
         </div>
 
         {onLogout && (
-          <button
-            className="text-blue-600"
+          <button 
+            className="text-black-600"
             onClick={onLogout}
           >
             <IoMdExit />
