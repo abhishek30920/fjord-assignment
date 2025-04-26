@@ -83,7 +83,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           <td className="p-2 text-center text-gray-500 border border-gray-200">{rowNumbers[idx]}</td>
           <td className="p-2 border border-gray-200">{label}</td>
           {renderInputCell(idx, "A", "bg-gray-100")}
-          <td className="p-2 text-right border border-green-300 bg-green-100">
+          <td className="p-2 text-right   bg-green-400">
             <input
               type="text"
               className="w-full text-right p-1 bg-transparent outline-none"
@@ -137,7 +137,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           <td className="p-2 border border-gray-200">{label}</td>
           {renderInputCell(idx, "A", "bg-gray-100")}
           {renderInputCell(idx, "B")}
-          {idx === 3 && <td className="p-2 text-center border border-gray-200 align-middle" rowSpan={3}></td>}
+          {idx === 3 && <td className="p-2 text-center border bg-gray-50 border-gray-200 align-middle" rowSpan={3}></td>}
         </tr>
       );
     }
@@ -160,7 +160,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
       <tr key={idx} className="border border-gray-200">
         <td className="p-2 text-center text-gray-500 border border-gray-200">{rowNumbers[idx]}</td>
         <td className="p-2 border border-gray-200">{label}</td>
-        {renderInputCell(idx, "A", "bg-gray-100")}
+        {renderInputCell(idx, "A", "bg-gray-150")}
         {renderInputCell(idx, "B")}
         {renderInputCell(idx, "C")}
       </tr>
